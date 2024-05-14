@@ -14,7 +14,7 @@ namespace AddressProvider.Functions
         private readonly Context _context = context;
 
         [Function("AddressProviderId")]
-        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "delete", Route = "AddressProvider/{id}")] HttpRequest req, int id)
+        public async Task<IActionResult> Run([HttpTrigger(AuthorizationLevel.Function, "delete", "get" , Route = "AddressProvider/{userId}/{addressId}")] HttpRequest req, string userId, int addressId)
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
@@ -22,7 +22,7 @@ namespace AddressProvider.Functions
             {
                 try
                 {
-                    AddressEntity? account = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+                    AddressEntity? account = await _context.Addresses.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == addressId);
                     if (account != null) 
                     {
                         return new OkObjectResult(account);
@@ -39,7 +39,7 @@ namespace AddressProvider.Functions
             {
                 try
                 {
-                    AddressEntity? account = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+                    AddressEntity? account = await _context.Addresses.FirstOrDefaultAsync(x => x.UserId == userId && x.Id == addressId);
                     if (account != null)
                     {
                         _context.Addresses.Remove(account);
