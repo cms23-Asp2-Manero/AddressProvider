@@ -44,7 +44,7 @@ namespace AddressProvider.Functions
 
             }
 
-                if (req.Method == HttpMethods.Put)
+            if (req.Method == HttpMethods.Put)
             {
                 try
                 {
@@ -67,7 +67,7 @@ namespace AddressProvider.Functions
                 }
                 catch
                 {
-                    return new StatusCodeResult(500);
+                    return new BadRequestResult();
                 }
 
             }

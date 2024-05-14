@@ -18,6 +18,23 @@ namespace AddressProvider.Functions
         {
             _logger.LogInformation("C# HTTP trigger function processed a request.");
 
+            if (req.Method == HttpMethods.Get)
+            {
+                try
+                {
+                    AddressEntity? account = await _context.Addresses.FirstOrDefaultAsync(x => x.Id == id);
+                    if (account != null) 
+                    {
+                        return new OkObjectResult(account);
+                    }
+                    return new NotFoundResult();
+                }
+                catch (Exception ex) 
+                {
+                    return new BadRequestObjectResult(ex);
+                }
+            }
+
             if (req.Method == HttpMethods.Delete)
             {
                 try
