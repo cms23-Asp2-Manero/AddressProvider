@@ -1,4 +1,6 @@
 using AddressProvider.Data.Contexts;
+using AddressProvider.Interfaces;
+using AddressProvider.Repositories;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,6 +14,7 @@ var host = new HostBuilder()
         services.AddApplicationInsightsTelemetryWorkerService();
         services.ConfigureFunctionsApplicationInsights();
         services.AddDbContext<Context>(x => x.UseSqlServer(Environment.GetEnvironmentVariable("SqlServerAddress")));
+        services.AddScoped<IAddressRepository, AddressRepository>();
     })
     .Build();
 
