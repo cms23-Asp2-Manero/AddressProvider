@@ -10,6 +10,8 @@ public class AddressEntity
     [Required]
     public string UserId { get; set; } = null!;
 
+    public string? Title { get; set; }
+
     [Required]
     public string AddressLine1 { get; set; } = null!;
 
